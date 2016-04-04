@@ -14,12 +14,12 @@ public class SOAPConnect {
     public SOAPMessage SOAPConSend(String url) throws SOAPException, IOException {
         
         SOAPConnection soapConnection = SOAPConnectionFactory.newInstance().createConnection();
-        SOAPMessage soapResponse = soapConnection.call(SOAPConRequest("http://ws.cdyne.com/"),url);
+        SOAPMessage soapResponse = soapConnection.call(SOAPConObject("http://ws.cdyne.com/"),url);
         return soapResponse;
     
     }
     
-    public SOAPMessage SOAPConRequest(String serverURI) throws SOAPException, IOException {
+    public SOAPMessage SOAPConObject(String serverURI) throws SOAPException, IOException {
 
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage soapMessage = messageFactory.createMessage();

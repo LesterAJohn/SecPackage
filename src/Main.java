@@ -1,4 +1,7 @@
 
+import javax.xml.soap.SOAPMessage;
+
+
 /*
 Test Code for Library Functions
  */
@@ -7,18 +10,20 @@ Test Code for Library Functions
  *
  * @author lester.john
  */
+
 public class Main {
     public static void main(String[] args) throws Exception {
         Encryption.ASEKeyGen();
         Encryption.RSAKeys();
         String encValue = Encryption.RSAencrypt("mypassword");
         String outPut = WebConnect.sendGet("http://www.oracle.com");
-        /* String decValue = Encryption.RSAdecrypt(encValue); */
-        
+
+        /* String decValue = Encryption.RSAdecrypt(encValue); */        
         System.out.println("PublicKey :" + Encryption.pubKey());
         System.out.println("PrivateKey :" + Encryption.priKey());  
         System.out.println("Encrypted Value :" + encValue);
+
         /* System.out.println("Decrypted Value :" + decValue); */
-        System.out.println("Webconnect :" + outPut);
-    }   
-}
+        System.out.println("Webconnect :" + outPut);        
+        }
+    }
