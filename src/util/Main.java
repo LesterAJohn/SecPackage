@@ -1,5 +1,7 @@
+package util;
 
-import javax.xml.soap.SOAPMessage;
+
+import javax.crypto.SecretKey;
 
 
 /*
@@ -18,12 +20,12 @@ public class Main {
         String encValue = Encryption.RSAencrypt("mypassword");
         String outPut = WebConnect.sendGet("http://www.oracle.com");
 
-        /* String decValue = Encryption.RSAdecrypt(encValue); */        
+        /* String decValue = Encryption.RSAdecrypt(encValue); */
         System.out.println("PublicKey :" + Encryption.pubKey());
         System.out.println("PrivateKey :" + Encryption.priKey());  
-        System.out.println("Encrypted Value :" + encValue);
+        System.out.println("AESKey :" + Encryption.aesKey());
 
         /* System.out.println("Decrypted Value :" + decValue); */
-        System.out.println("Webconnect :" + outPut);        
+        /* System.out.println("Webconnect :" + outPut); */        
         }
     }
