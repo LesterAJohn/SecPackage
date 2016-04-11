@@ -1,0 +1,32 @@
+apply plugin: 'java'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+jar {
+    baseName = 'SecPackage'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+	compile group: 'org.nanohttpd', name:'nanohttpd-nanolets', version:'2.3.1-SNAPSHOT'
+	compile group: 'com.google.code.gson', name:'gson', version:'1.7.1'
+	compile group: 'com.google.api.client', name:'google-api-client-http', version:'1.2.3-alpha'
+	compile group: 'com.google.api.client', name:'google-api-client-googleapis-auth', version:'1.2.3-alpha'
+	compile group: 'com.google.api.client', name:'google-api-client-util', version:'1.2.3-alpha'
+	compile group: 'com.google.api.client', name:'google-api-client-javanet', version:'1.2.3-alpha'
+	compile group: 'com.google.api.client', name:'google-api-client-json', version:'1.2.3-alpha'
+	
+	compile group: 'commons-codec', name:'commons-codec', version:'1.10'
+	
+	compile group: 'com.google.android', name: 'android', version:'4.1.1.4'
+	
+	compile ('org.apache.derby:derbyclient:10.12.1.1')
+	compile ('org.apache.derby:derby:10.12.1.1')
+}
