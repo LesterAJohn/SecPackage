@@ -2,6 +2,8 @@ package util;
 
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
+
+import java.security.GeneralSecurityException;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -27,7 +29,7 @@ public static PublicKey pubKey;
 public static PrivateKey priKey;
 public static SecretKey aesKey;
 
-        public static void ASEKeyGen() throws NoSuchAlgorithmException {
+        private static void ASEKeyGen() throws NoSuchAlgorithmException {
     
         SecureRandom rand = new SecureRandom();
         KeyGenerator generator = KeyGenerator.getInstance("AES");
@@ -36,22 +38,29 @@ public static SecretKey aesKey;
         aesKey = generator.generateKey();
         }
 
-        public static void RSAKeys() throws NoSuchAlgorithmException, NoSuchProviderException {
+        private static void RSAKeys() throws NoSuchAlgorithmException, NoSuchProviderException {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
         keyGen.initialize(512);
         pubKey = keyGen.genKeyPair().getPublic();
         priKey = keyGen.genKeyPair().getPrivate();
         }
         
-        public static PublicKey pubKey() {
+        public static PublicKey pubKey() throws GeneralSecurityException, NoSuchProviderException {
+        	if(pubKey == null) {
+        		RSAKeys();
+        	}
             return pubKey;
         }
         
-        public static PrivateKey priKey() {
+        public static PrivateKey priKey() throws GeneralSecurityException, NoSuchProviderException {
+        	if(priKey == null) {
+        		RSAKeys();
+        	}
             return priKey;
         }
         
-        public static SecretKey aesKey() {
+        public static SecretKey aesKey() throws GeneralSecurityException, NoSuchProviderException {
+        	ASEKeyGen();
             return aesKey;
         }
         
