@@ -75,7 +75,7 @@ public static SecretKey aesKey;
         }
         
         public static String RSAdecrypt(String encryptedData) throws Exception {
-        byte[] Buffer = new byte[128];
+        byte[] Buffer = new byte[encryptedData.length()];
         Cipher c = Cipher.getInstance("RSA");
         c.init(Cipher.DECRYPT_MODE,priKey);
         
