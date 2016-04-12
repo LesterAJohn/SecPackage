@@ -16,13 +16,13 @@ public class Main {
         // String outPut = WebConnect.sendGet("http://www.oracle.com");
 
         // String decValue = Encryption.RSAdecrypt(encValue);
-        // System.out.println("RSAPublicKey :" + Encryption.pubKey());
-        // System.out.println("RSAPrivateKey :" + Encryption.priKey());  
-        // System.out.println("AESKey :" + Encryption.aesKey());
+        System.out.println("RSAPublicKey :" + Encryption.pubKey().toString());
+        System.out.println("RSAPrivateKey :" + Encryption.priKey().toString());  
+        System.out.println("AESKey :" + Encryption.aesKey().toString());
 
         // System.out.println("Decrypted Value :" + decValue);
         // System.out.println("Webconnect :" + outPut);       
     	
-    	DBConnect.createDB();
+    	// DBConnect.createDB();
         }
     }

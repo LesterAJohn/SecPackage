@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
+import javax.crypto.SecretKey;
 
 /**
  *
@@ -23,7 +24,7 @@ import java.util.Properties;
 
 public class DBConnect {
 
-    private static String framework = "embedded";
+    // private static String framework = "embedded";
     private static String protocol = "jdbc:derby:";
     private static String dbName = "derbydb";
     private static String dbPath = "C:\\Users\\lester.john\\workspaces\\PixlTone\\SecPackage\\WorkFiles\\";
@@ -32,6 +33,7 @@ public class DBConnect {
     static Properties props = new Properties();
     static Connection conn = null;
     static Statement sqlConn = null;
+    static String tableName = "keys";
 
     public void setProperties(String newProtocol, String newDBPath, String newDBName, String userName, String passWord) {
     	protocol = newProtocol;
@@ -43,13 +45,7 @@ public class DBConnect {
     }
 
     public static void createDB() throws Exception {
-    	File f = new File(dbPath+dbName);
-    	if(f.exists() == true) {
-    		connectDB("false");
-    	} 
-    	else {
-    		connectDB("true");
-    	}
+    	connectDB((new File(dbPath + dbName)).exists() ? "false" : "true");
     }
     
     public static void connectDB(String cDB) throws SQLException {
@@ -61,32 +57,44 @@ public class DBConnect {
     }
     
     public void createKeyTable(String tableName) throws SQLException {
-    	sqlConn.execute("create table "+tableName+"(priKey varchar(256) , pubKey varchar(256))");
+    	sqlConn.execute("create table "+ tableName +" (priKey varchar(256) , pubKey varchar(256))");
     }
     
-    public void createKeyTableEntry() throws SQLException {
-    	sqlCommand = conn.prepareStatement("");
-    	
+    public void createKeyTableEntry(SecretKey priKey, SecretKey pubKey) throws SQLException {
+    	sqlCommand = conn.prepareStatement("insert into "+ tableName +" values (?, ?)");
+    	statements.add(sqlCommand);
+    	sqlCommand.setString(1, priKey.toString());
+    	sqlCommand.setString(2, pubKey.toString());
+    	sqlCommand.execute();
+    }
+
+    public ResultSet readKeyTableEntry(SecretKey pubKey) throws SQLException {
+    	sqlCommand = conn.prepareStatement("select * from " + tableName + "where pubKey=?");
+    	statements.add(sqlCommand);
+    	sqlCommand.setString(1, pubKey.toString());
+    	return sqlCommand.executeQuery();
+    }
+    
+    public void updateKeyTableEntry(SecretKey priKey, SecretKey pubKey) throws SQLException {
+    	sqlCommand = conn.prepareStatement("update "+ tableName +" set priKey=?, pubKey=? where priKey=?");
+    	statements.add(sqlCommand);
+    	sqlCommand.setString(1, priKey.toString());
+    	sqlCommand.setString(2, pubKey.toString());
+    	sqlCommand.setString(3, priKey.toString());
     	sqlCommand.execute();
     }
     
-    public void updateKeyTableEntry() throws SQLException {
-    	sqlCommand = conn.prepareStatement("");
-    	
-    	sqlCommand.execute();
-    }
-    
-    public ResultSet readKeyTableEntry() throws SQLException {
-    	sqlCommand = conn.prepareStatement("");
-    	
-    	ResultSet outPut = sqlCommand.executeQuery();
-    	return outPut;
-    }
-    
-    public void deleteKeyTableEntry() throws SQLException {
-    	sqlCommand = conn.prepareStatement("");
-    	
+    public void deleteKeyTableEntry(SecretKey priKey, SecretKey pubKey) throws SQLException {
+    	sqlCommand = conn.prepareStatement("delete from "+ tableName +" set priKey=?, pubKey=? where priKey=?");
+    	statements.add(sqlCommand);
+    	sqlCommand.setString(1, priKey.toString());
+    	sqlCommand.setString(2, pubKey.toString());
+    	sqlCommand.setString(3, priKey.toString());
     	sqlCommand.execute();    	
+    }
+    
+    public void dropKeyDB(String tableName) throws Exception {
+    	sqlCommand.execute("drop table "+ tableName);
     }
     
     public void dbCommit() throws SQLException {
