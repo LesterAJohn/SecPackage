@@ -1,6 +1,5 @@
 package util;
 
-
 /*
 Test Code for Library Functions
  */
@@ -16,13 +15,13 @@ public class Main {
         // String outPut = WebConnect.sendGet("http://www.oracle.com");
 
         // String decValue = Encryption.RSAdecrypt(encValue);
-        System.out.println("RSAPublicKey :" + Encryption.pubKey().toString());
-        System.out.println("RSAPrivateKey :" + Encryption.priKey().toString());  
-        System.out.println("AESKey :" + Encryption.aesKey().toString());
+        // System.out.println("RSAPublicKey :" + Encryption.pubKey().toString());
+        // System.out.println("RSAPrivateKey :" + Encryption.priKey().toString());  
+        // System.out.println("AESKey :" + Encryption.aesKey().toString());
 
         // System.out.println("Decrypted Value :" + decValue);
         // System.out.println("Webconnect :" + outPut);       
     	
-    	// DBConnect.createDB();
+    	// (new KeyDB()).createKeyTableEntry(Encryption.priKey(), Encryption.pubKey(), Encryption.aesKey().toString());
         }
     }

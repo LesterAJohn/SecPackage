@@ -53,7 +53,6 @@ public class DBConnect {
     	conn.setAutoCommit(true);
     	sqlConn = conn.createStatement();
     	statements.add(sqlConn);
-    	
     }
     
     public void createKeyTable(String tableName) throws SQLException {
