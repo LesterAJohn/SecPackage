@@ -1,4 +1,4 @@
-package util;
+package src.util;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +21,9 @@ import java.net.URL;
 
 public class WebConnect {
     
+@SuppressWarnings("unused")
+private static int responseCode;
+
 // HTTP GET request
 	public static String sendGet(String url) throws Exception {
  
@@ -36,7 +39,7 @@ public class WebConnect {
 		// add request header
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
  
-		int responseCode = con.getResponseCode();
+		responseCode = con.getResponseCode();
 		// System.out.println("\nSending 'GET' request to URL : " + url);
 		// System.out.println("Response Code : " + responseCode);
                 StringBuffer response;
@@ -58,12 +61,12 @@ public class WebConnect {
  
 	}
         
-        // HTTP POST request
+// HTTP POST request
 	public static String sendPost(String url, String urlParameters) throws Exception {
  
                 // Examples of Parameters
                 // String url = "http://selfsolve.apple.com/wcResults.do";
-		// String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
+				// String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
 
                 URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -80,7 +83,7 @@ public class WebConnect {
                 wr.flush();
             }
  
-		int responseCode = con.getResponseCode();
+		responseCode = con.getResponseCode();
 		// System.out.println("\nSending 'POST' request to URL : " + url);
 		// System.out.println("Post parameters : " + urlParameters);
 		// System.out.println("Response Code : " + responseCode);

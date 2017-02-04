@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package util;
+package src.util;
 
 import java.io.File;
 import java.sql.Connection;
